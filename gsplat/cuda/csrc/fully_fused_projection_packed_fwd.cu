@@ -167,7 +167,7 @@ __global__ void fully_fused_projection_packed_fwd_kernel(
                 break;
         }
 
-        det = add_blur(eps2d, covar2d, compensation);
+        det = add_blur(eps2d, covar2d, compensation, image_width, image_height);
         if (det <= 0.f) {
             valid = false;
         } else {

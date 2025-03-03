@@ -153,7 +153,7 @@ __global__ void fully_fused_projection_fwd_kernel(
     }
 
     T compensation;
-    T det = add_blur(eps2d, covar2d, compensation);
+    T det = add_blur(eps2d, covar2d, compensation, image_width, image_height);
     if (det <= 0.f) {
         radii[idx] = 0;
         return;

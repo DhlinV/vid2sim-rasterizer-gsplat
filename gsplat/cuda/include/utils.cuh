@@ -27,10 +27,16 @@ inline __device__ void inverse_vjp(const T Minv, const T v_Minv, T &v_M) {
 }
 
 template <typename T>
-inline __device__ T add_blur(const T eps2d, mat2<T> &covar, T &compensation) {
+inline __device__ T add_blur(const T eps2d, mat2<T> &covar, T &compensation, const int32_t image_width, const int32_t image_height) {
     T det_orig = covar[0][0] * covar[1][1] - covar[0][1] * covar[1][0];
     covar[0][0] += eps2d;
     covar[1][1] += eps2d;
+    if (sqrt(covar[0][0]) > 0.2 * image_width || sqrt(covar[1][1]) > 0.2 * image_height) {
+        covar[0][0] = 0;
+        covar[1][1] = 0;
+        covar[0][1] = 0;
+        covar[1][0] = 0;
+    }
     T det_blur = covar[0][0] * covar[1][1] - covar[0][1] * covar[1][0];
     compensation = sqrt(max(0.f, det_orig / det_blur));
     return det_blur;
