@@ -2,6 +2,11 @@
 
 This is a modified version of the original [gsplat](https://github.com/nerfstudio-project/gsplat) repository to support rasterizing with 2d clipping for rendering scenarios from Vid2Sim.
 
+## Installation
+
+```bash
+pip install -e . --no-build-isolation -v
+```
 
 ## Adapted from the following repository
 - [gsplat](https://github.com/nerfstudio-project/gsplat)
